@@ -33,6 +33,7 @@
         
         if ([state containsString:letter]) {
             containsLetter = YES;
+            break;
         }
     }
     
