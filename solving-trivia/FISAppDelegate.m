@@ -5,25 +5,10 @@
 @implementation FISAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [self solveTrivia];
     return YES;
 }
 
-#pragma mark - Little Helpers
-
-- (NSString *)cleanString:(NSString *)string {
-    string = [string lowercaseString];
-    
-    for (NSUInteger i = 0; i < [string length]; i++) {
-        NSString *character = [NSString stringWithFormat:@"%c", [string characterAtIndex:i]];
-        
-        if ([character isEqualToString:@"."] || [character isEqualToString:@" "]) {
-            string = [string stringByReplacingOccurrencesOfString:character withString:@""];
-        }
-    }
-    
-    return string;
-}
+#pragma mark - Little Helper
 
 - (BOOL)state:(NSString *)state containsLetterFromCapital:(NSString *)capital {
     BOOL containsLetter = NO;
@@ -33,6 +18,7 @@
         
         if ([state containsString:letter]) {
             containsLetter = YES;
+            break;
         }
     }
     
@@ -76,7 +62,7 @@
                                          @"South Dakota": @"Pierre",
                                          @"Kentucky"    : @"Frankfort",
                                          @"Tennessee"   : @"Nashville",
-                                         @"Louisiana"    : @"Baton Rouge",
+                                         @"Louisiana"   : @"Baton Rouge",
                                          @"Texas"       : @"Austin",
                                          @"Maine"       : @"Augusta",
                                          @"Utah"        : @"Salt Lake City",
@@ -86,7 +72,7 @@
                                          @"Virginia"    : @"Richmond",
                                          @"Michigan"    : @"Lansing",
                                          @"Washington"  : @"Olympia",
-                                         @"Minnesota"   : @"St.Paul",
+                                         @"Minnesota"   : @"Saint Paul",
                                          @"West Virginia" : @"Charleston",
                                          @"Mississippi" : @"Jackson",
                                          @"Wisconsin"   : @"Madison",
@@ -98,7 +84,7 @@
         NSString *state = [statesAndCapitals.allKeys objectAtIndex:i];
         NSString *capital = [statesAndCapitals objectForKey:state];
         
-        if (![self state:[self cleanString:state] containsLetterFromCapital:[self cleanString:capital]]) {
+        if (![self state:state containsLetterFromCapital:capital]) {
             stateAnswer = state;
         }
     }
